@@ -1,5 +1,6 @@
 # Задание
 1. Используя команду cat в терминале операционной системы Linux, создать два файла Домашние животные (заполнив файл собаками, кошками, хомяками) и Вьючные животными заполнив файл Лошадьми, верблюдами и ослы), а затем объединить их. Просмотреть содержимое созданного файла. Переименовать файл, дав ему новое имя (Друзья человека).
+
 cat > Домашние_животные
 собака 
 кошка 
@@ -13,29 +14,36 @@ cat Все животные
 mv Все_животные Друзья_человека
 
 2. Создать директорию, переместить файл туда
+
 sudo mkdir Животные
 sudo mv Друзья_человека Животные/
 
 3. Подключить дополнительный репозиторий MySQL. Установить любой пакет из этого репозитория.
+
 sudo wget -c https://dev.mysql.com/get/mysql-apt-config_0.8.24-1_all.deb
 sudo dpkg -i mysql-apt-config_0.8.24-1_all.deb
 
 4. Установить и удалить deb-пакет с помощью dpkg.
+
 sudo dpkg -r mysql-server-8.0
 
 5. Выложить историю команд в терминале ubuntu
+
 history
 
 6. Нарисовать диаграмму, в которой есть класс родительский класс, домашние животные и вьючные животные, в составы которых в случае домашних животных войдут классы: собаки, кошки, хомяки, а в класс вьючные животные войдут: Лошади, верблюды и ослы).
-<a href="diagramm/ClassDiagramm.drawio.png" target="_blank">диаграмма</a>.
+
+<a href="diagramm/ClassDiagramm.drawio.png" target="_blank">Диаграмма</a>
 
 7. В подключенном MySQL репозитории создать базу данных “Друзья человека”
+
 /home/ekaterina# mysql
 mysql> show databases;
 mysql> CREATE DATABASE human_friends;
 mysql> show databases;
 
 8. Создать таблицы с иерархией из диаграммы в БД
+
 mysql> use human_friends;
 Database changed
 mysql> CREATE TABLE `animal`
@@ -47,6 +55,7 @@ mysql> CREATE TABLE `animal`
     -> ;
 
 9. Заполнить низкоуровневые таблицы именами(животных), командами которые они выполняют и датами рождения
+
 mysql> ALTER TABLE `mule` ADD CONSTRAINT `pack_to_mule` FOREIGN KEY (`id_pack`) REFERENCES `pack_animal` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 mysql> INSERT INTO pack_animal (pack_name, livePlace, id_animal) VALUES ('Вьючные', 'Скотный двор', 1);
 mysql> INSERT INTO cat (cat_name, date_birth, commands, `color`, id_home)
@@ -56,6 +65,7 @@ mysql> INSERT INTO cat (cat_name, date_birth, commands, `color`, id_home)
     -> ('Степка','2023-01-01','лежать','белый', 1);
 
 10. Удалить из таблицы верблюдов, т.к. верблюдов решили перевезти в другой питомник на зимовку. Объединить таблицы лошади, и ослы в одну таблицу.
+
 mysql> DELETE FROM camel;
 mysql> SELECT id, name, commands, color, id_pack
     -> FROM horse
@@ -100,6 +110,7 @@ mysql> INSERT INTO young_animal (id, name, date_birth, commands, color, age)
     -> WHERE TIMESTAMPDIFF(MONTH, date_birth, NOW()) BETWEEN 12 AND 36;
 
 12. Объединить все таблицы в одну, при этом сохраняя поля, указывающие на прошлую принадлежность к старым таблицам.
+
 mysql>
 mysql> SELECT * FROM (SELECT id, cat_name, dog_name, NULL as hamster_name, NULL as name, date birth, commands, color FROM (
 -> SELECT id, cat_name, NULL as dog_name, NULL AS hamster_name, NULL AS name, date_birth, commands, color FROM cat
