@@ -9,6 +9,7 @@ cat > Домашние_животные
 
 хомяк
 
+
 cat > Вьючные_животные
 
 лошадь
@@ -16,6 +17,7 @@ cat > Вьючные_животные
 верблюд
 
 осел
+
 
 cat > Домашние_животные Вьючные_животные Все_животные
 
@@ -123,6 +125,7 @@ mysql> CREATE TABLE young_animal (
 
 -> age varchar(20));
 
+
 mysql> INSERT INTO young_animal (id, name, date_birth, commands, color, age)
 
 -> SELECT id, cat_name, date_birth, commands, color,
@@ -135,6 +138,7 @@ mysql> INSERT INTO young_animal (id, name, date_birth, commands, color, age)
 
 -> WHERE TIMESTAMPDIFF(MONTH, date_birth, NOW()) BETWEEN 12 AND 36; 
 
+
 mysql> INSERT INTO young_animal (id, name, date birth, commands, color, age)
 
 -> SELECT id, dog_name, date_birth, commands, color,
@@ -146,6 +150,7 @@ mysql> INSERT INTO young_animal (id, name, date birth, commands, color, age)
 -> FROM dog
 
 -> WHERE TIMESTAMPDIFF(MONTH, date_birth, NOW()) BETWEEN 12 AND 36;
+
 
 mysql> INSERT INTO young_animal (id, name, date_birth, commands, color, age)
 
